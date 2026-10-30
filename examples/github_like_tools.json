@@ -1,0 +1,231 @@
+{
+  "tools": [
+    {
+      "name": "get_issue",
+      "description": "Get the details of a single issue. Returns title, body, labels, assignees and state. Use list_issues to discover issue numbers first.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "Repository owner (user or organization login)"
+          },
+          "repo": {
+            "title": "Repo",
+            "type": "string",
+            "description": "Repository name without the owner prefix"
+          },
+          "issue_number": {
+            "title": "Issue Number",
+            "type": "integer",
+            "description": "Issue number"
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "issue_number"
+        ]
+      }
+    },
+    {
+      "name": "list_issues",
+      "description": "List issues in a repository. Supports filtering by state and labels. Results are paginated; use page and perPage to walk through them.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "Repository owner (user or organization login)"
+          },
+          "repo": {
+            "title": "Repo",
+            "type": "string",
+            "description": "Repository name without the owner prefix"
+          },
+          "state": {
+            "title": "State",
+            "type": "string",
+            "description": "Filter by state: open, closed or all"
+          },
+          "labels": {
+            "title": "Labels",
+            "type": "string",
+            "description": "Comma separated labels"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "description": "Page number"
+          },
+          "perPage": {
+            "title": "Perpage",
+            "type": "integer",
+            "description": "Results per page, max 100"
+          }
+        },
+        "required": [
+          "owner",
+          "repo"
+        ]
+      }
+    },
+    {
+      "name": "create_issue",
+      "description": "Create a new issue. Requires write access to the repository. Do not use for pull requests.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "Repository owner (user or organization login)"
+          },
+          "repo": {
+            "title": "Repo",
+            "type": "string",
+            "description": "Repository name without the owner prefix"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "Issue title"
+          },
+          "body": {
+            "title": "Body",
+            "type": "string",
+            "description": "Issue body in markdown"
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "title"
+        ]
+      }
+    },
+    {
+      "name": "get_pull_request",
+      "description": "Get a pull request by number, including head and base refs, mergeability and review state.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "Repository owner (user or organization login)"
+          },
+          "repo": {
+            "title": "Repo",
+            "type": "string",
+            "description": "Repository name without the owner prefix"
+          },
+          "pull_number": {
+            "title": "Pull Number",
+            "type": "integer",
+            "description": "Pull request number"
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "pull_number"
+        ]
+      }
+    },
+    {
+      "name": "list_commits",
+      "description": "List commits on a branch. Optionally restrict to a path or author. Paginated.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "Repository owner (user or organization login)"
+          },
+          "repo": {
+            "title": "Repo",
+            "type": "string",
+            "description": "Repository name without the owner prefix"
+          },
+          "sha": {
+            "title": "Sha",
+            "type": "string",
+            "description": "Branch name, tag or commit SHA"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer",
+            "description": "Page number"
+          },
+          "perPage": {
+            "title": "Perpage",
+            "type": "integer",
+            "description": "Results per page, max 100"
+          }
+        },
+        "required": [
+          "owner",
+          "repo"
+        ]
+      }
+    },
+    {
+      "name": "get_file_contents",
+      "description": "Get the contents of a file or directory at a given ref. Large files are truncated; directories return a listing of entries with their types and sizes.",
+      "inputSchema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "Repository owner (user or organization login)"
+          },
+          "repo": {
+            "title": "Repo",
+            "type": "string",
+            "description": "Repository name without the owner prefix"
+          },
+          "path": {
+            "title": "Path",
+            "type": "string",
+            "description": "File or directory path"
+          },
+          "ref": {
+            "title": "Ref",
+            "type": "string",
+            "description": "Git ref"
+          }
+        },
+        "required": [
+          "owner",
+          "repo",
+          "path"
+        ]
+      }
+    },
+    {
+      "name": "ping",
+      "description": "Health check.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  ]
+}
